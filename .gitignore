@@ -5,4 +5,5 @@ cucumber-report/
 phantomjsdriver.log
 *.jpg
 cucumber_project.iml
-
+.DS_Store
+**/.DS_Store
