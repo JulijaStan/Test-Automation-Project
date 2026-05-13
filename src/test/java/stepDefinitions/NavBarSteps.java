@@ -44,7 +44,12 @@ public class NavBarSteps {
 
     @Then("I see a dropdown menu with subcategories for {string}")
     public void iSeeADropdownMenuWithSubcategories(String categoryName) {
-        assertTrue(navBarPage.isDropdownVisibleFor(categoryName));
+
+        boolean isVisible = navBarPage.isDropdownVisibleFor(categoryName);
+        assertTrue(
+                isVisible,
+                "BUG: Dropdown is NOT displayed for category: " + categoryName
+        );
     }
 
     //Redirections to category and subcategory pages
