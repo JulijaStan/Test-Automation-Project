@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import java.util.List;
 
 public class NavBarPage {
 
@@ -16,7 +17,6 @@ public class NavBarPage {
     private final By headerLogo = By.className("header-logo");
 
     // Locators with parameters for categories and subcategories
-    // normalize-space() removes extra spaces
     private By categoryItem(String name) {
         return By.xpath("//ul[@class='top-menu']//a[normalize-space()='" + name + "']");
     }
@@ -31,7 +31,6 @@ public class NavBarPage {
                 "//ul[contains(@class,'sublist')]//a[normalize-space()='" + name + "']");
     }
 
-
     public NavBarPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -40,7 +39,7 @@ public class NavBarPage {
         driver.get("https://demowebshop.tricentis.com");
     }
 
-    //Actions
+    // Actions
 
     public void navigateToAnyPage() {
         driver.findElement(cartLink).click();
@@ -56,9 +55,12 @@ public class NavBarPage {
         hover(category);
     }
 
+
     public boolean isDropdownVisibleFor(String categoryName) {
-        WebElement dropdown = driver.findElement(dropdownForCategory(categoryName));
-        return dropdown.isDisplayed();
+
+        List<WebElement> dropdowns = driver.findElements(dropdownForCategory(categoryName));
+
+        return !dropdowns.isEmpty() && dropdowns.get(0).isDisplayed();
     }
 
     public void clickCategory(String categoryName) {
@@ -101,10 +103,10 @@ public class NavBarPage {
         return isHighlighted(subcategoryLink);
     }
 
-//Helpers: to avoid code duplication and centralize CSS-based highlight checks
+    // Helpers
 
     private void hover(WebElement element) {
-        new Actions(driver).moveToElement(element).perform(); //Simulates mouse hover over the element
+        new Actions(driver).moveToElement(element).perform();
     }
 
     private boolean isHighlighted(WebElement element) {
