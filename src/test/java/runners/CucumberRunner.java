@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
                 "junit:cucumber-report/junit-report.xml",
                 "json:cucumber-report/json-report.json"},
         tags = "not @test and not @bug",
-        glue = {"cucumber.stepDefinitions"}
+        glue = {"stepDefinitions"}
 )
 public class CucumberRunner {
 
